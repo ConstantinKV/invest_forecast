@@ -5,6 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/invest_forecast/',
   plugins: [
     react(),
     tailwindcss(),
@@ -18,7 +19,7 @@ export default defineConfig({
         theme_color: '#16a34a',
         background_color: '#ffffff',
         display: 'standalone',
-        start_url: '/',
+        start_url: '/invest_forecast/',
         icons: [
           {
             src: 'invest_forecast.png',
