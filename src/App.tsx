@@ -5,7 +5,8 @@ import InvestmentList from './components/InvestmentList';
 import InvestmentForm from './components/InvestmentForm';
 import SettingsPage from './components/SettingsPage';
 import { useInvestments } from './hooks/useInvestments';
-import { SettingsProvider, useSettings } from './contexts/SettingsContext';
+import { SettingsProvider } from './contexts/SettingsContext';
+import { useSettings } from './hooks/useSettings';
 import type { Investment } from './types';
 
 function AddPage() {

@@ -30,9 +30,8 @@ describe('useInvestments', () => {
 
   it('addInvestment adds an investment with generated id', () => {
     const { result } = renderHook(() => useInvestments());
-    let added: Investment;
     act(() => {
-      added = result.current.addInvestment(makeInvestmentData());
+      result.current.addInvestment(makeInvestmentData());
     });
     expect(result.current.investments).toHaveLength(1);
     expect(result.current.investments[0].id).toBeTruthy();

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Investment, InvestmentType } from '../types';
 
@@ -90,11 +90,8 @@ export default function InvestmentForm({ initialValues, investmentTypes, onSubmi
 
   const [errors, setErrors] = useState<FormErrors>({});
 
-  useEffect(() => {
-    if (!form.investmentTypeId && investmentTypes.length > 0) {
-      setForm((prev) => ({ ...prev, investmentTypeId: investmentTypes[0].id }));
-    }
-  }, [investmentTypes, form.investmentTypeId]);
+  const resolvedTypeId =
+    form.investmentTypeId || (investmentTypes.length > 0 ? investmentTypes[0].id : '');
 
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
@@ -111,7 +108,7 @@ export default function InvestmentForm({ initialValues, investmentTypes, onSubmi
       newErrors.interestRate = 'Interest rate must be between 0 and 100';
     }
 
-    if (!form.investmentTypeId) {
+    if (!resolvedTypeId) {
       newErrors.investmentTypeId = 'Investment type is required';
     }
 
@@ -127,7 +124,7 @@ export default function InvestmentForm({ initialValues, investmentTypes, onSubmi
       startDate: form.startDate,
       period: parseInt(form.period) as Investment['period'],
       interestFrequency: form.interestFrequency,
-      investmentTypeId: form.investmentTypeId,
+      investmentTypeId: resolvedTypeId,
       amount: parseFloat(form.amount),
       currency: form.currency,
       interestRate: parseFloat(form.interestRate),
@@ -197,7 +194,7 @@ export default function InvestmentForm({ initialValues, investmentTypes, onSubmi
 
             <FormField label="Investment Type" error={errors.investmentTypeId}>
               <select
-                value={form.investmentTypeId}
+                value={resolvedTypeId}
                 onChange={(e) => set('investmentTypeId', e.target.value)}
                 className={errors.investmentTypeId ? errorInputClass : inputClass}
               >

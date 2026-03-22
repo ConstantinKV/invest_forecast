@@ -1,4 +1,4 @@
-import { createContext, useContext, type ReactNode } from 'react';
+import { createContext, type ReactNode } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import type { AppSettings, InvestmentType } from '../types';
 import { DEFAULT_SETTINGS } from '../types';
@@ -11,7 +11,7 @@ interface SettingsContextValue {
   deleteInvestmentType: (id: string) => void;
 }
 
-const SettingsContext = createContext<SettingsContextValue | null>(null);
+export const SettingsContext = createContext<SettingsContextValue | null>(null);
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useLocalStorage<AppSettings>('invest_forecast_settings', DEFAULT_SETTINGS);
@@ -43,8 +43,3 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export function useSettings() {
-  const ctx = useContext(SettingsContext);
-  if (!ctx) throw new Error('useSettings must be used within SettingsProvider');
-  return ctx;
-}
