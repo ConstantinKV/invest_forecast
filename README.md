@@ -82,6 +82,10 @@ All data is stored in `localStorage` under two keys:
 
 No backend, no account, no network requests.
 
+## Development
+
+This project was built with [Claude Code](https://claude.ai/code) — Anthropic's AI-powered CLI for software development. The entire application, including architecture, implementation, tests, and CI configuration, was created through an interactive session with Claude Sonnet 4.6 in approximately 2.5 hours.
+
 ## License
 
 MIT License — Copyright (c) 2026 ConstantinKV
