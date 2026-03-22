@@ -111,7 +111,7 @@ function ThemeManager() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <SettingsProvider>
         <ThemeManager />
         <Layout>
