@@ -40,7 +40,7 @@ export default function Layout({ children }: LayoutProps) {
       {/* Desktop top nav */}
       <nav className="hidden md:flex items-center justify-between px-6 py-3 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
         <Link to="/" className="flex items-center gap-2">
-          <img src="/invest_forecast.png" alt="Invest Forecast" className="h-8 w-8 rounded-lg" />
+          <img src={`${import.meta.env.BASE_URL}invest_forecast.png`} alt="Invest Forecast" className="h-8 w-8 rounded-lg" />
           <span className="text-lg font-bold text-green-600 dark:text-green-400">Invest Forecast</span>
         </Link>
         <div className="flex items-center gap-4">
