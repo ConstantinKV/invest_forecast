@@ -11,7 +11,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['invest_forecast.png'],
+      includeAssets: ['invest_forecast.png', 'icon-192.png'],
       manifest: {
         name: 'Invest Forecast',
         short_name: 'InvForecast',
@@ -22,14 +22,16 @@ export default defineConfig({
         start_url: '/invest_forecast/',
         icons: [
           {
-            src: 'invest_forecast.png',
+            src: 'icon-192.png',
             sizes: '192x192',
             type: 'image/png',
+            purpose: 'any',
           },
           {
             src: 'invest_forecast.png',
             sizes: '512x512',
             type: 'image/png',
+            purpose: 'any maskable',
           },
         ],
       },
