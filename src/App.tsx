@@ -4,9 +4,11 @@ import Layout from './components/Layout';
 import InvestmentList from './components/InvestmentList';
 import InvestmentForm from './components/InvestmentForm';
 import SettingsPage from './components/SettingsPage';
+import LockScreen from './components/LockScreen';
 import { useInvestments } from './hooks/useInvestments';
 import { SettingsProvider } from './contexts/SettingsContext';
 import { useSettings } from './hooks/useSettings';
+import { usePinLock } from './hooks/usePinLock';
 import type { Investment } from './types';
 
 function AddPage() {
@@ -67,6 +69,7 @@ function ListPage() {
 
 function Settings() {
   const { settings, updateTheme, addInvestmentType, updateInvestmentType, deleteInvestmentType } = useSettings();
+  const { hasPin, setupPin, verifyPin, removePin } = usePinLock();
 
   return (
     <SettingsPage
@@ -75,6 +78,10 @@ function Settings() {
       onAddType={addInvestmentType}
       onUpdateType={updateInvestmentType}
       onDeleteType={deleteInvestmentType}
+      hasPin={hasPin}
+      onSetPin={setupPin}
+      onVerifyPin={verifyPin}
+      onRemovePin={removePin}
     />
   );
 }
@@ -109,19 +116,35 @@ function ThemeManager() {
   return null;
 }
 
+function AppShell() {
+  const { isLocked, verifyPin, unlock } = usePinLock();
+
+  const handleUnlock = async (pin: string) => {
+    const ok = await verifyPin(pin);
+    if (ok) unlock();
+    return ok;
+  };
+
+  if (isLocked) return <LockScreen onUnlock={handleUnlock} />;
+
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<ListPage />} />
+        <Route path="/add" element={<AddPage />} />
+        <Route path="/edit/:id" element={<EditPage />} />
+        <Route path="/settings" element={<Settings />} />
+      </Routes>
+    </Layout>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <SettingsProvider>
         <ThemeManager />
-        <Layout>
-          <Routes>
-            <Route path="/" element={<ListPage />} />
-            <Route path="/add" element={<AddPage />} />
-            <Route path="/edit/:id" element={<EditPage />} />
-            <Route path="/settings" element={<Settings />} />
-          </Routes>
-        </Layout>
+        <AppShell />
       </SettingsProvider>
     </BrowserRouter>
   );

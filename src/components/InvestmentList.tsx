@@ -94,7 +94,7 @@ function StaticTh({ label, hint }: { label: string; hint: string }) {
 export default function InvestmentList({ investments, investmentTypes, onDelete }: InvestmentListProps) {
   const navigate = useNavigate();
   const [sortField, setSortField] = useState<SortField>('date');
-  const [sortDir, setSortDir] = useState<SortDir>('asc');
+  const [sortDir, setSortDir] = useState<SortDir>('desc');
   const [includeFuture, setIncludeFuture] = useState(false);
 
   const handleSort = (field: SortField) => {
@@ -180,6 +180,9 @@ export default function InvestmentList({ investments, investmentTypes, onDelete 
         </div>
       ) : (
         <>
+          {/* Summary */}
+          <Summary investments={investments} investmentTypes={investmentTypes} includeFuture={includeFuture} />
+
           {/* Future toggle */}
           <div
             className="flex items-center gap-3 cursor-pointer w-fit"
@@ -244,9 +247,6 @@ export default function InvestmentList({ investments, investmentTypes, onDelete 
               />
             ))}
           </div>
-
-          {/* Summary */}
-          <Summary investments={investments} investmentTypes={investmentTypes} includeFuture={includeFuture} />
         </>
       )}
     </div>
