@@ -86,6 +86,17 @@ function Settings() {
   );
 }
 
+const BG_LIGHT = '#ffffff';
+const BG_DARK = '#111827'; // Tailwind gray-900
+
+function applyStatusBarColor(isDark: boolean) {
+  const color = isDark ? BG_DARK : BG_LIGHT;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', color);
+  // iOS standalone: swap status bar style meta tag dynamically
+  const iosMeta = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+  iosMeta?.setAttribute('content', isDark ? 'black' : 'default');
+}
+
 function ThemeManager() {
   const { settings } = useSettings();
 
@@ -97,6 +108,7 @@ function ThemeManager() {
       } else {
         root.classList.remove('dark');
       }
+      applyStatusBarColor(isDark);
     };
 
     if (settings.theme === 'dark') {
