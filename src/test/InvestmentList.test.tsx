@@ -107,34 +107,34 @@ describe('InvestmentList', () => {
     expect(onDelete).not.toHaveBeenCalled();
   });
 
-  it('sort by date ascending works (default)', () => {
+  it('sort by date descending works (default)', () => {
     const inv1 = makeInvestment({ id: 'a', startDate: '2025-06-01' });
     const inv2 = makeInvestment({ id: 'b', startDate: '2025-01-01' });
     render(<InvestmentList investments={[inv1, inv2]} investmentTypes={[bonds]} onDelete={vi.fn()} />);
 
-    // Default sort is 'date' ascending, so Jan should come before Jun
+    // Default sort is 'date' descending, so Jun should come before Jan
     const cells = screen.getAllByText(/2025/i);
     const texts = cells.map((el) => el.textContent);
     const janIdx = texts.findIndex((t) => t?.includes('Jan'));
     const junIdx = texts.findIndex((t) => t?.includes('Jun'));
-    expect(janIdx).toBeLessThan(junIdx);
+    expect(junIdx).toBeLessThan(janIdx);
   });
 
-  it('sort by date descending works after clicking date header', () => {
+  it('sort by date ascending works after clicking date header', () => {
     const inv1 = makeInvestment({ id: 'a', startDate: '2025-01-01' });
     const inv2 = makeInvestment({ id: 'b', startDate: '2025-06-01' });
     render(<InvestmentList investments={[inv1, inv2]} investmentTypes={[bonds]} onDelete={vi.fn()} />);
 
-    // Click Start Date to toggle to descending (already ascending by default)
+    // Click Start Date to toggle to ascending (default is descending)
     const dateHeader = screen.getByRole('button', { name: /start date/i });
-    fireEvent.click(dateHeader); // now descending
+    fireEvent.click(dateHeader); // now ascending
 
     const cells = screen.getAllByText(/2025/i);
     const texts = cells.map((el) => el.textContent);
     const janIdx = texts.findIndex((t) => t?.includes('Jan'));
     const junIdx = texts.findIndex((t) => t?.includes('Jun'));
-    // In descending, Jun comes before Jan
-    expect(junIdx).toBeLessThan(janIdx);
+    // In ascending, Jan comes before Jun
+    expect(janIdx).toBeLessThan(junIdx);
   });
 
   it('sort by amount works', () => {
