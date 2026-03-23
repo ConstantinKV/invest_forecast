@@ -428,7 +428,7 @@ export default function SettingsPage({ settings, onUpdateTheme, onAddType, onUpd
             <img src={`${import.meta.env.BASE_URL}invest_forecast.png`} alt="Invest Forecast" className="w-10 h-10 rounded-xl" />
             <div>
               <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">Invest Forecast</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">v0.1.0</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">v0.2.0</p>
             </div>
           </div>
           <p className="text-sm text-gray-600 dark:text-gray-400">Personal investment forecasting tool. Tracks investments and calculates expected interest income. All data is stored locally on your device.</p>
